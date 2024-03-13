@@ -1,33 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useMutation, useQuery } from "@apollo/client"
+import { CREATE_ADMIN, GET_ADMINS } from "./apollo/query"
+import { useEffect, useState } from "react"
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {data, loading, error} = useQuery(GET_ADMINS)
+  const [newAdmin] = useMutation(CREATE_ADMIN)
+  const [users, setUsers] = useState([])
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
+    useEffect(()=>{
+      if(!loading){
+        if(!error){
+          setUsers(data.getAdmins)
+        }
+      }
+    }, [data, loading, error])
+
+    const create_admin = () =>{
+      newAdmin({
+        variables: {
+          input: {
+            login, password
+          }
+        }
+      }).then(()=>{
+        setLogin('')
+        setPassword('')
+      })
+    }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h1>СПИСОК АДМІНІВ</h1>
+      <div style={{display: 'flex', flexDirection: 'column'}}>
+        {users.map(item => {
+          return <div key={item.id}>{item.login}</div>
+        })}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div style={{display: 'flex', flexDirection: 'column', width: '300px', gap: '5px'}}>
+        <h2>Добавити адміна</h2>
+        <input type="text" value={login} onChange={(e)=>setLogin(e.target.value)}/> LOGIN
+        <input type="text" value={password} onChange={(e)=>setPassword(e.target.value)}/> PASSWORD
+        <button onClick={create_admin}>add admin</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
