@@ -13,7 +13,7 @@ function ProductCard() {
 
   useEffect(()=>{
       if(!loading){
-        setDataInfo(data.getAllSocks)
+        setDataInfo(data ? data.getAllSocks : '')
       }
   }, [data, loading, error])
 
