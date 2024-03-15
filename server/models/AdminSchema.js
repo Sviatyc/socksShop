@@ -14,7 +14,9 @@ const Admin = new Schema({
         minLength: 5,
         unique: true
     }
+
 })
+
 
 
 module.exports = mongoose.model('Admin', Admin)
