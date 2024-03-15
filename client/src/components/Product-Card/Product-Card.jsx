@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 import { useQuery } from "@apollo/client"
 import { GET_SOCKS } from "../../apollo/query"
+import { ThreeDots } from 'react-loader-spinner';
+
+
 
 
 function ProductCard() {
@@ -14,7 +17,24 @@ function ProductCard() {
       }
   }, [data, loading, error])
 
-  
+  if(loading){
+    return (
+      <div className="flex justify-center w-screen items-center mt-5">
+        <ThreeDots
+        visible={true}
+        height="130"
+        width="130"
+        color="#black"
+        radius="9"
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+    />
+      </div>
+    )
+  }else if(error){
+    return <div className="w-screen flex justify-center text-[80px] font-bold">ERROR</div>
+  }
 
   return (
     <>
