@@ -1,4 +1,4 @@
-import ProductCard from "../Product-Card/Product-Card"
+import ProductCard from "../../components/Product-Card/Product-Card.jsx"
 
 function Catalog() {
   return (

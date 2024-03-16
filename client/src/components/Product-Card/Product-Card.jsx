@@ -36,6 +36,10 @@ function ProductCard() {
     return <div className="w-screen flex justify-center text-[80px] font-bold">ERROR</div>
   }
 
+  const curr = (item)=>{
+    
+  }
+
   return (
     <>
       {
@@ -48,7 +52,7 @@ function ProductCard() {
               <div className="ml-3 mt-2">
                 <h2 className="text-[20px] font-bold">{item.name}</h2>
                 <p>Price:</p>
-                <p className="ml-2 font-bold">{item.currency.UAN ? '₴' : '$'} {item.price}</p>
+                <p className="ml-2 font-bold">{item.currency.UAN ? '₴' : item.currency.USD ? '$' : '€'} {item.price}</p>
               </div>
             </div>
         )})
