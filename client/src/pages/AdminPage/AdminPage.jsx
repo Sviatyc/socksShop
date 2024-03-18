@@ -1,4 +1,4 @@
-import AdminLogin from '../../components/AdminLogin/AdminLogin'
+import AdminLogin from '../../components/LoginPage/LoginPage'
 
 
 export default function AdminPage(){

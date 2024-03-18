@@ -33,11 +33,7 @@ function ProductCard() {
       </div>
     )
   }else if(error){
-    return <div className="w-screen flex justify-center text-[80px] font-bold">ERROR</div>
-  }
-
-  const curr = (item)=>{
-    
+    return <div className="w-screen flex justify-center text-[80px] font-bold">SOCKS IS NOT FOUND</div>
   }
 
   return (
