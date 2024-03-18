@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react"
 import { useQuery } from "@apollo/client"
 import { GET_ADMINS } from "../../apollo/query"
+import { create } from 'zustand' 
 
+
+const isSuccses = create((set)=>({
+  succses: false,
+  succsesTrue: () => set({ succses: true }),
+}))
 
 function LoginPage() {
   const {data, loading, error} = useQuery(GET_ADMINS)
   const [users, setUsers] = useState([])
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
+  const {succses, succsesTrue} = isSuccses()
 
   useEffect(()=>{
     if(!loading){
@@ -17,9 +24,10 @@ function LoginPage() {
   const searchAdmin = () =>{
     users.map(item =>{
       if(item.login === login || item.password === password){
-        console.log('зайшло');
+        succsesTrue()
+        console.log(succses);
       }else{
-        console.log('не зайшло');
+        console.log(succses);
       }
 
     })
