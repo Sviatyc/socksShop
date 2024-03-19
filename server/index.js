@@ -4,17 +4,17 @@ const { graphqlHTTP } = require('express-graphql')
 const cors = require('cors')
 require('dotenv').config()
 
-const Admin = require('./models/AdminSchema.js')
 const Socks = require('./models/SocksSchema.js')
 const schema = require('./graphqlSchemas/schema.js')
 const app = express()
-const db = `mongodb+srv://socks:${process.env.MONGO__PASSWORD}@cluster0.vuxdrrm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+const db = `mongodb+srv://socks:${process.env.MONGO__PASSWORD}@Socks-Shop.vuxdrrm.mongodb.net/Socks?retryWrites=true&w=majority&appName=Socks-Shop`
 
 
 
 mongoose.connect(db)
     .then(() => console.log('mongodb is connect :)'))
     .catch(() => console.log('!!! mongodb is failed !!!'))
+    
 
 
     
@@ -27,17 +27,8 @@ app.get('/', function(req, res, err){
 
    
 const root = {
-        getAdmins: ()=>{
-            return Admin.find({})
-        },
         getAllSocks: ()=>{
             return Socks.find({})
-        },
-        createAdmin: ({input})=>{
-            new Admin(input)
-                .save()
-                .then((i) => console.log('запис нового адміна: ', i))
-                .catch((err)=> console.log(err))
         },
         createSocks: ({input})=>{
             new Socks(input)

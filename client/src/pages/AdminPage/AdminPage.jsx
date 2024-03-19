@@ -1,10 +1,11 @@
-import AdminLogin from '../../components/LoginPage/LoginPage'
-
+import AdminLogin from './AdminLogin'
+import AdminPanel from './AdminPanel'
 
 export default function AdminPage(){
+    
     return(
         <div>
-            <AdminLogin/>
+            {!localStorage.getItem("confirm") ? <AdminLogin/> : <AdminPanel />}
         </div>
     )
 }

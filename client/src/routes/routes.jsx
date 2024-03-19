@@ -9,7 +9,7 @@ export const routing = createBrowserRouter([
         element: <MainPage />
     },
     {
-        path: '/login',
+        path: '/admin',
         element: <AdminPage />
     }
 ])

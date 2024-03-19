@@ -30,4 +30,4 @@ const Socks = new Schema({
 })
 
 
-module.exports = mongoose.model('Socks', Socks)
+module.exports = mongoose.model('Socks', Socks, 'Socks-list')

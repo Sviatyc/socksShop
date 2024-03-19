@@ -1,14 +1,7 @@
 const { buildSchema } = require('graphql')
 
 
- const Admin = buildSchema(`
-
-        type Admin{
-            login: String
-            password: String
-            id: ID
-        }
-
+ const Socks = buildSchema(`
         type Socks{
             name: String
             price: Float
@@ -67,22 +60,14 @@ const { buildSchema } = require('graphql')
             UAN: Boolean
         }
 
-
-        input AdminInput{
-            login: String!
-            password: String!
-        }
-
         type Query{
-            getAdmins: [Admin]
             getAllSocks: [Socks]
         }
 
         type Mutation{
-            createAdmin(input: AdminInput): Admin
             createSocks(input: SocksInput): Socks
         }
 `)
 
 
-module.exports = Admin
+module.exports = Socks
