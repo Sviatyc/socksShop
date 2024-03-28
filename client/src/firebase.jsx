@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth"
-
+import { getAuth, GoogleAuthProvider } from "firebase/auth"
 
 const firebaseConfig = {
   apiKey: "AIzaSyBG9zZc1ow4AR4A8ZIXTnddSGNGlNZDR5U",
@@ -14,43 +13,6 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app)
-const provider = new GoogleAuthProvider()
+export const auth = getAuth(app)
+export const provider = new GoogleAuthProvider()
 
-export const signInWithGoogle = () =>{
-  signInWithPopup(auth, provider)
-  .then((res)=>{
-    const userName = res.user.displayName
-      const userEmail = res.user.email
-      const userPhoto = res.user.photoURL
-      localStorage.setItem("name", userName)
-      localStorage.setItem("email", userEmail)
-      localStorage.setItem("photo", userPhoto)     
-      localStorage.setItem("confirm", true)
-      window.location.reload()
-    })
-    .catch((err)=>{
-      console.error(err);
-      localStorage.setItem("confirm", false)
-    })
-}
-
-
-
-export const sightByEmailAndPassword = (email, password) =>{
-  signInWithEmailAndPassword(auth, email, password)
-    .then((res) => {
-      const userName = res.user.displayName
-      const userEmail = res.user.email
-      const userPhoto = res.user.photoURL
-      localStorage.setItem("name", userName)
-      localStorage.setItem("email", userEmail)
-      localStorage.setItem("photo", userPhoto)
-      localStorage.setItem("confirm", true)
-      window.location.reload()
-    })
-    .catch((err) => {
-      console.error(err)
-      localStorage.setItem("confirm", false)
-    });
-}
