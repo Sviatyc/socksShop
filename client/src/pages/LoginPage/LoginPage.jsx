@@ -16,9 +16,9 @@ const LoginPage = ()=>{
   const signInWithGoogle = () =>{
     signInWithPopup(auth, provider)
     .then((res)=>{
-        sessionStorage.setItem("name", res.user.displayName)
-        sessionStorage.setItem("email", res.user.email)
-        sessionStorage.setItem("photo", res.user.photoURL)    
+        localStorage.setItem("name", res.user.displayName)
+        localStorage.setItem("email", res.user.email)
+        localStorage.setItem("photo", res.user.photoURL)    
         navigate('/admin')
       })
       .catch((err)=>{
@@ -28,9 +28,9 @@ const LoginPage = ()=>{
   const sightByEmailAndPassword = (email, password) =>{
     signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        sessionStorage.setItem("name", res.user.displayName)
-        sessionStorage.setItem("email", res.user.email)
-        sessionStorage.setItem("photo", res.user.photoURL)  
+        localStorage.setItem("name", res.user.displayName)
+        localStorage.setItem("email", res.user.email)
+        localStorage.setItem("photo", res.user.photoURL)  
         navigate('/admin')
       })
       .catch((err) => {
