@@ -9,7 +9,21 @@ import {useNavigate} from "react-router-dom"
 const LoginPage = ()=>{
   const [userEmail, setUserEmail] = useState('')
   const [userPassword, setUserPassword] = useState('')
+  const [formError, setFormError] = useState('')
   const navigate = useNavigate()
+
+  const validation = () => {
+    const notEmpryPattern = /^\s*$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if(notEmpryPattern.test(userEmail) || notEmpryPattern.test(userPassword)){
+      setFormError('Поля не можуть бути пустими!')
+    }else if(!emailPattern.test(userEmail)){
+      setFormError('Електронна пошта введена некоректно')
+    }else{
+      setFormError('Невірний логін або пароль')
+    }
+  }
 
 
 
@@ -21,8 +35,8 @@ const LoginPage = ()=>{
         localStorage.setItem("photo", res.user.photoURL)    
         navigate('/admin')
       })
-      .catch((err)=>{
-        console.error(err);
+      .catch(()=>{
+        validation()
       })
   }
   const sightByEmailAndPassword = (email, password) =>{
@@ -33,8 +47,8 @@ const LoginPage = ()=>{
         localStorage.setItem("photo", res.user.photoURL)  
         navigate('/admin')
       })
-      .catch((err) => {
-        console.error(err)
+      .catch(() => {
+        validation()
       });
   }
   
@@ -64,7 +78,7 @@ const LoginPage = ()=>{
       </div>
       <input value={userEmail} onChange={(event)=>setUserEmail(event.target.value)} type="email" placeholder="Email adress" className="focus:border-transparent focus:outline-none px-2 border-b-2" />
       <input value={userPassword} onChange={(event)=>setUserPassword(event.target.value)} type="password" placeholder="Password" className="focus:border-transparent focus:outline-none px-2 border-b-2 mt-2" />
-      {!sessionStorage.getItem("confirm") ? <></> : <p className="text-[11px] text-red-500 absolute top-[245px]">Invalid login or password</p>}
+      {formError.length > 1 ? <p className="text-[11px] text-red-500 absolute top-[245px] valid-animate" >{formError}</p> : <></>}
       <button onClick={()=>{sightByEmailAndPassword(userEmail, userPassword), <Navigate to="/admin"/>}} className="w-[90px] h-[35px] bg-blue-500 rounded-[8px] text-white mt-5 hover:bg-blue-400">Log in</button>
     </div>
   )
